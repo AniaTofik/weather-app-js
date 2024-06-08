@@ -7,8 +7,22 @@ const weather = document.querySelector(".weather");
 const temperature = document.querySelector(".temperature");
 const humidity = document.querySelector(".humidity");
 
-const API_LINK =
-  "https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=";
+const API_LINK = "https://api.openweathermap.org/data/2.5/weather?q=";
 
 const API_KEY = "&appid=02e3b8e16ca9ab74967cb49577026069";
 const API_UNITS = "&units=metric";
+
+const getWeather = () => {
+  const city = input.value || "Gdańsk";
+  const URL = API_LINK + city + API_KEY + API_UNITS;
+
+  axios.get(URL).then((res) => {
+    console.log(res.data);
+    const temp = res.data.main.temp;
+    const hum = res.data.main.humidity;
+    cityName.textContent = res.data.name;
+    temperature.textContent = temp.toFixed(0) + "°C";
+    humidity.textContent = hum + "%";
+  });
+};
+getWeather();
